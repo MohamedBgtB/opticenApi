@@ -6,7 +6,7 @@ use App\Entity\Patient;
 use App\Entity\Prescription;
 use App\Entity\Produit;
 use App\Entity\Follows;
-use App\Entity\User;
+use App\Entity\Users;
 use App\Entity\Post;
 use App\Entity\Fournisseur;
 use App\Entity\LensType;
@@ -74,9 +74,10 @@ class BaseController extends AbstractController
     public function createUser(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
-        $user = new User();
+        $user = new Users();
         $user->setUsername($data['username']);
         $user->setRole($data['role']);
+        $user->setCreatedAt(new \DateTimeImmutable('Europe/Paris'));
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();
